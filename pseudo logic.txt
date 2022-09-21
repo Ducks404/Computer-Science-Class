@@ -1,3 +1,68 @@
 BEGIN
-    
+    INPUT n, m
+    signal_len <- 0
+    signal_names <- []
+    signals <- [][]
+
+    // INPUT loop
+    FOR i <- 0 TO n-1
+        INPUT input_name, input_signal
+        signal_len <- strlen(input_signal)
+
+        signal_names[i] <- input_name
+
+        input_signal_n <- []
+        FOR j <- 0 TO signal_len-1
+            IF input_signal[j] = "-" 
+                THEN
+                    signals[i][j] <- 1
+                ELSE
+                    signals[i][j] <- 0
+            ENDIF
+        NEXT
+    NEXT
+
+    // OUTPUT loop
+    FOR i <- 0 TO m-1
+        INPUT output_name, type, input_name_1, input_name_2
+
+        index_1 <- 0
+        index_2 <- 0
+        FOR j <- 0 TO n-1
+            IF input_name_1 = signal_names[j]
+                THEN
+                    index_1 <- j
+            ENDIF
+            IF input_name_2 = signal_names[j]
+                THEN
+                    index_2 <- j
+            ENDIF
+        NEXT
+
+        output_signal <- ""
+        accepted <- []
+        CASE OF type
+            "AND": accepted <- [2]
+            "OR": accepted <- [1,2]
+            "XOR": accepted <- [1]
+            "NAND": accepted <- [0,1]
+            "NOR": accepted <- [0]
+            "NXOR": accepted <- [0,2]
+        ENDCASE
+
+        FOR j <- 0 TO signal_len-1
+            signal <- "_"
+            sum <- signals[index_1][j] + signals[index_2][j]
+            FOR num <- 0 TO len(accepted)-1
+                IF sum = accepted[num]
+                    THEN
+                        signal <- "-"
+                ENDIF
+            NEXT
+
+            output_signal <- output_signal + signal
+        NEXT
+
+        OUTPUT output_name + ' ' + output_signal
+    NEXT
 END
