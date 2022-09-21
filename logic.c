@@ -56,45 +56,34 @@ int main()
 
         // Calculate output signal
         char output_signal[signal_len];
+        int accepted[2] = {-1,-1};
+        if (strcmp(type, "AND") == 0) {
+            int sums[] = {2};
+            memcpy(accepted, sums, sizeof(accepted));
+        } else if (strcmp(type, "OR") == 0) {
+            int sums[] = {1,2};
+            memcpy(accepted, sums, sizeof(accepted));
+        } else if (strcmp(type, "XOR") == 0) {
+            int sums[] = {1};
+            memcpy(accepted, sums, sizeof(accepted));
+        } else if (strcmp(type, "NAND") == 0) {
+            int sums[] = {0,1};
+            memcpy(accepted, sums, sizeof(accepted));
+        } else if (strcmp(type, "NOR") == 0) {
+            int sums[] = {0};
+            memcpy(accepted, sums, sizeof(accepted));             
+        } else if (strcmp(type, "NXOR") == 0) {
+            int sums[] = {0,2};
+            memcpy(accepted, sums, sizeof(accepted));
+        }
 
         // Loop through signal
         for (int j = 0; j < signal_len; j++) {
-            char signal;
-            if (strcmp(type, "AND") == 0) {
-                if (signals[index_1][j] + signals[index_2][j] == 2){
+            char signal = '_';
+            int sum = signals[index_1][j] + signals[index_2][j];
+            for (int num = 0; num < sizeof(accepted)/sizeof(int); num++) {
+                if (sum == accepted[num]) {
                     signal = '-';
-                } else {
-                    signal = '_';
-                }
-            } else if (strcmp(type, "OR") == 0) {
-                if (signals[index_1][j] + signals[index_2][j] >= 1){
-                    signal = '-';
-                } else {
-                    signal = '_';
-                }
-            } else if (strcmp(type, "XOR") == 0) {
-                if (signals[index_1][j] + signals[index_2][j] == 1){
-                    signal = '-';
-                } else {
-                    signal = '_';
-                }
-            } else if (strcmp(type, "NAND") == 0) {
-                if (signals[index_1][j] + signals[index_2][j] != 2){
-                    signal = '-';
-                } else {
-                    signal = '_';
-                }
-            } else if (strcmp(type, "NOR") == 0) {
-                if (signals[index_1][j] + signals[index_2][j] == 0){
-                    signal = '-';
-                } else {
-                    signal = '_';
-                }               
-            } else if (strcmp(type, "NXOR") == 0) {
-                if (signals[index_1][j] + signals[index_2][j] != 1){
-                    signal = '-';
-                } else {
-                    signal = '_';
                 }
             }
 
