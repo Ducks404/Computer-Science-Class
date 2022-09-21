@@ -28,7 +28,7 @@ int main()
 
         // Convert stripes to numbers
         int input_signal_n[signal_len];
-        for (int j = 0; j < strlen(input_signal); j++) {
+        for (int j = 0; j < signal_len; j++) {
             if (input_signal[j] == '-') {
                 signals[i][j] = 1;
             } else {
