@@ -27,18 +27,21 @@ while n>0:
     day = int(input("On what day would you like to book? (1-14) "))
     accesible = input("Do you need an accesible spot? (Y/N) ").lower()
 
-    if day >= 1 and day <= 14 and (accesible == 'y' or accesible == 'n'):
-        day-=1
-        space = checkspace(booking[day], accesible)
-        if space == -1:
-            print("Sorry, unavailable day")
+    if day >= 1 and day <= 14:
+        if (accesible == 'y' or accesible == 'n'):
+            day-=1
+            space = checkspace(booking[day], accesible)
+            if space == -1:
+                print("Sorry, unavailable day")
+            else:
+                name = input("Please enter name: ")
+                license = input("Please enter license: ")
+                booking[day][space] = [name, license]
+                space += 1
+                print(f"Your space is {space}")
+                n -= 1
         else:
-            name = input("Please enter name: ")
-            license = input("Please enter license: ")
-            booking[day][space] = [name, license]
-            space += 1
-            print(f"Your space is {space}")
-            n -= 1
+            print("Invalid answer")
     else:
         print("Invalid day")
         
