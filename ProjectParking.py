@@ -24,7 +24,10 @@ def checkspace(day, accesible):
 # pass to loop back to asking
 n=2
 while n>0:
-    day = int(input("On what day would you like to book? (1-14) "))
+    try:
+        day = int(input("On what day would you like to book? (1-14) "))
+    except:
+        print("Invalid day")
     accesible = input("Do you need an accesible spot? (Y/N) ").lower()
 
     if day >= 1 and day <= 14:
