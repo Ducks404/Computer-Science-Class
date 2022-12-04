@@ -7,14 +7,14 @@ for day in range(14):
 
 #print(booking)
 
-def checkspace(day, accesible):
+def checkspace(day, accessible):
     space = -1
-    if accesible == 'n':
-        for index in range(6,20)[::-1]:
+    if accessible == 'n':
+        for index in range(5,20)[::-1]:
             if day[index] == []:
                 space = index
                 break
-    elif accesible == 'y':
+    elif accessible == 'y':
         for index in range(20):
             if day[index] == []:
                 space = index
@@ -28,12 +28,12 @@ while n>0:
         day = int(input("On what day would you like to book? (1-14) "))
     except:
         print("Invalid day")
-    accesible = input("Do you need an accesible spot? (Y/N) ").lower()
+    accessible = input("Do you need an accessible spot? (Y/N) ").lower()
 
     if day >= 1 and day <= 14:
-        if (accesible == 'y' or accesible == 'n'):
+        if (accessible == 'y' or accessible == 'n'):
             day-=1
-            space = checkspace(booking[day], accesible)
+            space = checkspace(booking[day], accessible)
             if space == -1:
                 print("Sorry, unavailable day")
             else:
