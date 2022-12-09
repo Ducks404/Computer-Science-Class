@@ -51,7 +51,7 @@ def Accessible(booking):
         for spot in day[:5]:
             if spot != []:
                 total += 1
-    print("There were " + str(total) + " general space/s used in the whole 14 day period\n")
+    print("There were " + str(total) + " accessible space/s used in the whole 14 day period\n")
     
 
 def General(booking):
@@ -74,13 +74,50 @@ def Total(booking):
 done = False
 while not done:
     try:
-        day = int(input("On what day would you like to book? (1-14) "))
-    except:
-        print("Invalid day")
-        continue
-
-    if day >= 1 and day <= 14:
         # input 'admin' to check the statistics
+        day = input("On what day would you like to book? (1-14) ")
+        day = int(day)
+    except:
+        if day != 'admin':
+            day = -1
+
+    # admin page
+    if day == "admin":
+        choice = -1
+        while choice != 8:
+            print("1. Number of accessible spaces used on inputted day")
+            print("2. Number of general spaces used on inputted day")
+            print("3. Total number of spaces used on inputted day")
+            print("4. Number of accessible spaces used")
+            print("5. Number of general spaces used")
+            print("6. Total number of spaces used")
+            print("7. Exit out of admin page")
+            print("8. End the whole program")
+            choice = int(input("What do you want to see? ")) 
+            if choice == 1:
+                AccessibleInputted(booking)
+            elif choice == 2:
+                GeneralInputted(booking)
+            elif choice == 3:
+                TotalInputted(booking)
+            elif choice == 4:
+                Accessible(booking)
+            elif choice == 5:
+                General(booking)
+            elif choice == 6:
+                Total(booking)
+            elif choice == 7:
+                print("Thank you")
+                break
+            elif choice == 8:
+                print("See you next time")
+                done = True
+                break
+            else:
+                print("Invalid input")
+
+    # normal page
+    elif day >= 1 and day <= 14:
         accessible = input("Do you need an accessible spot? (Y/N) ").lower()  
         if (accessible == 'y' or accessible == 'n'):
             day-=1
@@ -93,40 +130,6 @@ while not done:
                 booking[day][space] = [name, license]
                 space += 1
                 print(f"Your space is {space}")
-        elif accessible == "admin":
-            choice = -1
-            while choice != 7:
-                print("1. Number of accessible spaces used on inputted day")
-                print("2. Number of general spaces used on inputted day")
-                print("3. Total number of spaces used on inputted day")
-                print("4. Number of accessible spaces used")
-                print("5. Number of general spaces used")
-                print("6. Total number of spaces used")
-                print("7. End the whole program")
-                print("8. Exit out of admin page")
-                choice = int(input("What do you want to see? ")) 
-                if choice == 1:
-                    AccessibleInputted(booking)
-                elif choice == 2:
-                    GeneralInputted(booking)
-                elif choice == 3:
-                    TotalInputted(booking)
-                elif choice == 4:
-                    Accessible(booking)
-                elif choice == 5:
-                    General(booking)
-                elif choice == 6:
-                    Total(booking)
-                elif choice == 7:
-                    print("See you next time")
-                    done = True
-                    break
-                elif choice == 8:
-                    print("Thank you")
-                    break
-                else:
-                    print("Invalid input")
-
         else:
             print("Invalid answer")
     else:

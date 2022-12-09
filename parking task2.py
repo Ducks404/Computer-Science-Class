@@ -21,16 +21,18 @@ def checkspace(day, accessible):
                 break
     return space
 
-# pass to loop back to asking
-n=2
-while n>0:
+while True:
     try:
-        day = int(input("On what day would you like to book? (1-14) "))
+        day = input("On what day would you like to book? (1-14) ")
+        day = int(day)
     except:
-        print("Invalid day")
-    accessible = input("Do you need an accessible spot? (Y/N) ").lower()
+        if day == 'exit':
+            break
+        else:
+            day = -1
 
     if day >= 1 and day <= 14:
+        accessible = input("Do you need an accessible spot? (Y/N) ").lower()
         if (accessible == 'y' or accessible == 'n'):
             day-=1
             space = checkspace(booking[day], accessible)
@@ -42,7 +44,6 @@ while n>0:
                 booking[day][space] = [name, license]
                 space += 1
                 print(f"Your space is {space}")
-                n -= 1
         else:
             print("Invalid answer")
     else:
