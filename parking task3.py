@@ -84,7 +84,7 @@ while not done:
     # admin page
     if day == "admin":
         choice = -1
-        while choice != 8:
+        while True:
             print("1. Number of accessible spaces used on inputted day")
             print("2. Number of general spaces used on inputted day")
             print("3. Total number of spaces used on inputted day")
